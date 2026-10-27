@@ -1,0 +1,9 @@
+export default function HeroLogo({ size = 26 }) {
+  return (
+    <svg width={size} height={size} viewBox="14.4 14.4 19.2 18.4" aria-hidden="true">
+      <path d="M 15.2,24 A 8.8,8.8 0 0 1 32.8,24 Z" fill="#EF6F6C" />
+      <rect x="16.3" y="25" width="7" height="7" rx="2" fill="#F0B429" />
+      <rect x="24.7" y="25" width="7" height="7" rx="2" fill="#4FBF8B" />
+    </svg>
+  );
+}

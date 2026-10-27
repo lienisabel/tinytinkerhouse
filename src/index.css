@@ -1,0 +1,131 @@
+* { box-sizing: border-box; }
+::-webkit-scrollbar { height: 8px; width: 8px; }
+::-webkit-scrollbar-thumb { background: #C6D9D4; border-radius: 8px; }
+input:focus, textarea:focus, select:focus, button:focus-visible {
+  outline: 2px solid #2F7A6D;
+  outline-offset: 1px;
+}
+button { font-family: inherit; cursor: pointer; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.dropdown-row:hover { background: #EAF6F1; }
+.section-header-btn:hover { background: #EAF6F1 !important; border-radius: 14px; }
+.age-group-label-btn:hover { background: #EAF6F1; border-radius: 8px; }
+.al-hero-nav-item:hover { color: #1E2A2A; }
+
+/* "+" swaps to a lightbulb on hover — the idea "switching on",
+   with a soft glow pulse and a few sparkles bursting around it. */
+.al-cta-icon-swap { position: relative; width: 15px; height: 15px; display: inline-block; flex-shrink: 0; overflow: visible; }
+.al-cta-icon-plus, .al-cta-icon-bulb {
+  position: absolute; top: 0; left: 0; z-index: 2;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+}
+.al-cta-icon-plus { opacity: 1; transform: scale(1) rotate(0deg); }
+.al-cta-icon-bulb { opacity: 0; transform: scale(0.3) rotate(-50deg); }
+.al-hero-cta:hover .al-cta-icon-plus { opacity: 0; transform: scale(0.3) rotate(50deg); }
+.al-hero-cta:hover .al-cta-icon-bulb { opacity: 1; transform: scale(1) rotate(0deg); }
+
+.al-cta-glow {
+  position: absolute; top: 50%; left: 50%; width: 30px; height: 30px;
+  transform: translate(-50%, -50%) scale(0); opacity: 0; pointer-events: none; z-index: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,210,90,0.85) 0%, rgba(255,210,90,0) 72%);
+}
+.al-hero-cta:hover .al-cta-glow {
+  animation: bulbGlow 0.9s ease-out 0.12s 1;
+}
+@keyframes bulbGlow {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+  35% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+  65% { opacity: 0.55; transform: translate(-50%, -50%) scale(0.9); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+
+.al-cta-spark {
+  position: absolute; top: 50%; left: 50%; width: 3px; height: 3px; border-radius: 50%;
+  background: #FFE8A3; opacity: 0; transform: translate(-50%, -50%) scale(0);
+  pointer-events: none; z-index: 1;
+}
+.al-hero-cta:hover .al-cta-spark {
+  animation: sparkBurst 0.55s ease-out forwards;
+  animation-delay: var(--sdelay, 0.15s);
+}
+@keyframes sparkBurst {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--sx)), calc(-50% + var(--sy))) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .al-cta-icon-plus, .al-cta-icon-bulb { transition: opacity 0.15s ease !important; }
+  .al-hero-cta:hover .al-cta-icon-plus, .al-hero-cta:hover .al-cta-icon-bulb { transform: none !important; }
+  .al-hero-cta:hover .al-cta-glow, .al-hero-cta:hover .al-cta-spark { animation: none !important; }
+}
+.al-nav-word-wrap { position: relative; display: inline-block; }
+.al-nav-squiggle {
+  position: absolute; left: -2px; right: -2px; bottom: -5px; height: 8px;
+  width: calc(100% + 4px); pointer-events: none;
+}
+.al-nav-squiggle path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.al-hero-nav-item:hover .al-nav-squiggle path {
+  animation: drawSquiggle 0.35s ease-out forwards;
+}
+.al-hero-cta:hover { background: #F7C247; }
+.al-hero-generate-btn:hover { background: #EADCFA; }
+.view-tab-btn:hover { color: #1E2A2A; }
+.al-hero-generate-btn:active { transform: translateY(1px); }
+.al-hero-cta:active { transform: translateY(1px); }
+.al-hero-menu-btn { display: none; }
+
+@keyframes drawSquiggle {
+  0% { stroke-dashoffset: 1; opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .al-nav-squiggle path { animation: none !important; }
+}
+
+/* Collage hero: entrance + idle float. Entrance runs once (backwards
+   fill keeps it invisible during its stagger delay); float takes over
+   the instant entrance ends (matching delay), so transforms never
+   fight for the same element. */
+@keyframes tileEnter {
+  from { opacity: 0; transform: scale(0.4) rotate(var(--rot)); }
+  to { opacity: 1; transform: scale(1) rotate(var(--rot)); }
+}
+@keyframes tileFloat {
+  0%, 100% { transform: translateY(0) rotate(var(--rot)); }
+  50% { transform: translateY(-6px) rotate(var(--rot)); }
+}
+.al-collage-layer { position: absolute; inset: 0; pointer-events: none; }
+.al-collage-mobile { display: none; }
+.al-collage-tile-inner {
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .al-collage-tile { animation: none !important; opacity: 1 !important; }
+  .al-collage-tile-inner { transition: none !important; }
+}
+
+/* Responsive collage: drop inner tiles first (~1100px), then swap
+   to the 4-tile mobile corner set (~640px). */
+@media (max-width: 1100px) {
+  .al-collage-inner-layer { display: none; }
+}
+@media (max-width: 900px) {
+  .al-layout-row { flex-direction: column; }
+  .al-sidebar { position: static !important; width: 100% !important; max-height: none !important; }
+}
+@media (max-width: 640px) {
+  .al-grid { grid-template-columns: 1fr !important; }
+  .al-collage-desktop { display: none !important; }
+  .al-collage-mobile { display: block; }
+  .al-hero-nav { display: none !important; }
+  .al-hero-menu-btn { display: flex !important; }
+  .al-mobile-cta { display: flex !important; }
+  .al-mobile-generate-btn { display: flex !important; }
+  .al-collage-card { min-height: 0 !important; padding: 26px 20px 22px !important; margin: 4px 0 0 !important; }
+  .al-collage-h1 { font-size: 34px !important; line-height: 1.04 !important; }
+  .al-collage-tagline { font-size: 15px !important; }
+}
