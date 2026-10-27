@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import {
   Search,
+  Blocks,
   Plus,
   X,
   Sparkles,
@@ -569,10 +570,12 @@ ${libraryListing || "(library is currently empty)"}`;
                 </svg>
               </span>
             </button>
+            {/* AI features disabled for now (needs ANTHROPIC_API_KEY + api/claude.js).
             <button className="al-hero-generate-btn" style={styles.heroGenerateBtn} onClick={openGenerator}>
               <Sparkles size={14} />
               Generate with AI
             </button>
+            */}
             <button className="al-hero-cta" style={styles.heroCTA} onClick={openAddForm}>
               <span className="al-cta-icon-swap" aria-hidden="true">
                 <span className="al-cta-glow" />
@@ -627,10 +630,12 @@ ${libraryListing || "(library is currently empty)"}`;
           <Plus size={18} strokeWidth={3} />
           Add an idea
         </button>
+        {/* AI features disabled for now (needs ANTHROPIC_API_KEY + api/claude.js).
         <button className="al-mobile-generate-btn" style={styles.mobileGenerateBtn} onClick={openGenerator}>
           <Sparkles size={17} />
           Generate with AI
         </button>
+        */}
       </header>
 
       <div style={styles.viewTabsRow}>
@@ -985,6 +990,7 @@ ${libraryListing || "(library is currently empty)"}`;
               </button>
             </div>
 
+            {/* AI features disabled for now (needs ANTHROPIC_API_KEY + api/claude.js).
             {!editingId && (
               <div style={styles.pasteBox}>
                 <div style={styles.pasteLabel}>
@@ -1020,6 +1026,7 @@ ${libraryListing || "(library is currently empty)"}`;
                 <p style={styles.orManual}>Or just fill in the details yourself below:</p>
               </div>
             )}
+            */}
 
             <form onSubmit={handleSave} style={styles.form}>
               <label style={styles.label}>

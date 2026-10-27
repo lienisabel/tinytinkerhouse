@@ -1,3 +1,7 @@
+// DISABLED: moved out of /api so Vercel does not deploy it. To re-enable the AI
+// features, move this back to api/claude.js, set ANTHROPIC_API_KEY in Vercel, and
+// uncomment the "AI features disabled" blocks in src/App.jsx.
+
 import Anthropic from "@anthropic-ai/sdk";
 
 /* ---------------------------------------------------------------------
